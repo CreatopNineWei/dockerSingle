@@ -1,3 +1,5 @@
 /vhosts
 /certs
-/webdir*
+/html
+/mysql
+/logs

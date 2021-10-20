@@ -1,15 +1,15 @@
 version: '3.5'
 services:
   db:
-    container_name: db${customer}
+    container_name: db_${customer}
     image: poiuy999/mysql57
     restart: always
     volumes:
-      - ../../${customer}/mysql/:/var/lib/mysql
+      - ../../mysql/${customer}:/var/lib/mysql
       #- ../../install/mysql/:/docker-entrypoint-initdb.d/ #預執行的.sql檔
     environment:
       MYSQL_ROOT_PASSWORD: ${customer}
-      #MYSQL_DATABASE: ${customer}
+      MYSQL_DATABASE: ${customer}
       #MYSQL_USER: ${customer}
       #MYSQL_PASSWORD: ${customer}
     networks:
@@ -25,8 +25,8 @@ services:
       - customer=${customer}
       - whoAmI=${customer}
      volumes:
-      - ../../${customer}/html:/var/www/html
-      - ../../${customer}/logs:/var/log/apache2
+      - ../../html/${customer}:/var/www/html
+      - ../../logs/${customer}:/var/log/apache2
      networks:
       - default
       - front
