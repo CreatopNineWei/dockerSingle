@@ -1,0 +1,37 @@
+version: '3.5'
+services:
+  proxy: #代理網站
+     container_name: apache_proxy
+     image: poiuy999/apache_proxy
+     restart: always #設定自動重開
+     volumes:
+      - ../../vhosts/:/etc/apache2/sites-customer/ #各網站的 vhost.conf
+      - ../../proxy/html/:/var/www/html/ #預設網站的document_root
+      - ../../certs/:/etc/letsencrypt/live/ #免費憑證存放位置
+      - ../../proxy/logs:/var/log/apache2
+     ports:
+      - "80:80"
+      - "443:443"
+     networks:
+      - default
+      - front
+  phpmyadmin:  #所有資料庫共用的phpMyAdmin
+     container_name: apache_phpmyadmin
+     image: poiuy999/apache_web73
+     restart: always #設定自動重開
+     volumes:
+      - ../../phpmyadmin/html:/var/www/html/ #預設網站的document_root
+      - ../../phpmyadmin/logs:/var/log/apache2
+     ports: 
+      - "8000:80"
+     networks:
+      - default
+      - backend
+networks:
+    default:
+    front:
+        external: true
+        name: front
+    backend:
+        external: true
+        name: backend

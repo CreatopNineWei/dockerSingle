@@ -1,0 +1,40 @@
+version: '3.5'
+services:
+  db:
+    container_name: db${customer}
+    image: poiuy999/mysql57
+    restart: always
+    volumes:
+      - ../../${customer}/mysql/:/var/lib/mysql
+      #- ../../install/mysql/:/docker-entrypoint-initdb.d/ #預執行的.sql檔
+    environment:
+      MYSQL_ROOT_PASSWORD: ${customer}
+      #MYSQL_DATABASE: ${customer}
+      #MYSQL_USER: ${customer}
+      #MYSQL_PASSWORD: ${customer}
+    networks:
+      - default
+      - backend
+  web:
+     container_name: web_${customer}
+     depends_on:
+      - db
+     image: poiuy999/apache_web56
+     restart: always
+     environment:
+      - customer=${customer}
+      - whoAmI=${customer}
+     volumes:
+      - ../../${customer}/html:/var/www/html
+      - ../../${customer}/logs:/var/log/apache2
+     networks:
+      - default
+      - front
+networks:
+    default:
+    front:
+        external: true
+        name: front
+    backend:
+        external: true
+        name: backend
