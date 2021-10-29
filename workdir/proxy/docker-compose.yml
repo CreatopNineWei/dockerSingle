@@ -25,6 +25,36 @@ services:
      networks:
       - default
       - backend
+  manage_db:
+    container_name: db_manage
+    image: poiuy999/mysql57
+    restart: always
+    volumes:
+      - ../../mysql/manage:/var/lib/mysql
+      #- ../../install/mysql/:/docker-entrypoint-initdb.d/ #預執行的.sql檔
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd_manage
+      MYSQL_DATABASE: db_manage
+      #MYSQL_USER: user_manage
+      #MYSQL_PASSWORD: manage_
+    networks:
+      - default
+      - backend
+  manage_web:
+     container_name: web_manage
+     depends_on:
+      - manage_db
+     image: poiuy999/apache_web73
+     restart: always
+     environment:
+      - customer=manage
+      - whoAmI=manage
+     volumes:
+      - ../../base/manage:/var/www/html
+      - ../../logs/manage:/var/log/apache2
+     networks:
+      - default
+      - front
 networks:
     default:
     front:

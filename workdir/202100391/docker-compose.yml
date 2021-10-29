@@ -8,10 +8,10 @@ services:
       - ../../mysql/${customer}:/var/lib/mysql
       #- ../../install/mysql/:/docker-entrypoint-initdb.d/ #預執行的.sql檔
     environment:
-      MYSQL_ROOT_PASSWORD: ${customer}
-      MYSQL_DATABASE: ${customer}
-      #MYSQL_USER: ${customer}
-      #MYSQL_PASSWORD: ${customer}
+      MYSQL_ROOT_PASSWORD: pwd_${customer}
+      MYSQL_DATABASE: db_${customer}
+      MYSQL_USER: user_${customer}
+      MYSQL_PASSWORD: ${password}
     networks:
       - default
       - backend

@@ -1,5 +1,10 @@
+/.idea
 /vhosts
 /certs
 /html
 /mysql
 /logs
+/workdir
+!/workdir/proxy
+!/workdir/vhosts_demo
+!/workdir/web_demo
