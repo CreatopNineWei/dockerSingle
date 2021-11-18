@@ -4,6 +4,8 @@
 /html
 /mysql
 /logs
+/base/manage
+
 /workdir
 !/workdir/proxy
 !/workdir/vhosts_demo

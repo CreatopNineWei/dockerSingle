@@ -41,10 +41,10 @@ services:
       - default
       - backend
   manage_web:
-     container_name: web_manage
+     container_name: apache_manage
      depends_on:
       - manage_db
-     image: poiuy999/apache_web73
+     image: poiuy999/apache_web73_public
      restart: always
      environment:
       - customer=manage
@@ -52,6 +52,8 @@ services:
      volumes:
       - ../../base/manage:/var/www/html
       - ../../logs/manage:/var/log/apache2
+      - ../../workdir:/var/www/workdir
+      - /var/run/docker.sock:/var/run/docker.sock
      networks:
       - default
       - front
